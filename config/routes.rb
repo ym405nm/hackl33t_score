@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :challenges
   resources :questions
   devise_for :users
   root 'pages#index'

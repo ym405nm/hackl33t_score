@@ -1,0 +1,36 @@
+<h1>こんにちは、<%= current_user.username %>さん</h1>
+<p>ユーザー用ページです。</p>
+
+
+<h1>Challenges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Question</th>
+      <th>Result</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @challenges.each do |challenge| %>
+      <tr>
+        <td><%= challenge.user_id %></td>
+        <td><%= challenge.question_id %></td>
+        <td><%= challenge.result %></td>
+        <td><%= link_to 'Show', challenge %></td>
+        <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
+        <td><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Challenge', new_challenge_path %>
+
+<%= link_to('Logout', destroy_user_session_path, method: :delete, :class => 'btn btn-primary') %>
+
