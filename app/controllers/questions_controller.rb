@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /questions
   # GET /questions.json
@@ -10,6 +11,22 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    question_id = params[:id]
+    if question_id == "1"
+     # Good
+    else
+      # 今のIDとchallengeのラストIDが適切かどうかを確認する
+      expect_last_id = question_id.to_i - 1
+      @user = current_user
+      c_check = Challenge.where("question_id": expect_last_id).where("user_id": current_user)
+      if c_check.exists?
+        # Good
+      else
+        # Bad
+        render "questions/no_access"
+      end
+    end
+
   end
 
   # GET /questions/new
