@@ -1,9 +1,5 @@
 <h1>こんにちは、<%= current_user.username %>さん</h1>
-<p>ユーザー用ページです。</p>
-
-
-<%= @last_item_question_id %> 問クリア
-
+<p>ユーザー用ページです。 <%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
 <div class="row">
   <div class="col-md-6">
     -
@@ -52,4 +48,6 @@
     </tbody>
   </table>
 </div>
-
+<div>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+</div>
