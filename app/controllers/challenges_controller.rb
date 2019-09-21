@@ -5,9 +5,16 @@ class ChallengesController < ApplicationController
   # GET /challenges
   # GET /challenges.json
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.all.order("id": "desc")
     @questions = Question.all
     @user = current_user
+    @last_item = Challenge.where("result": 1).where("user_id": @user).order("question_id": "desc")
+    if @last_item.exists?
+      @last_item_question_id = @last_item.first().question_id
+    else
+      @last_item_question_id = 0
+    end
+    logger.debug(@last_item_question_id)
   end
 
   # GET /challenges/1
