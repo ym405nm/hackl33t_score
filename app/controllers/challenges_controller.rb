@@ -5,7 +5,7 @@ class ChallengesController < ApplicationController
   # GET /challenges
   # GET /challenges.json
   def index
-    @challenges = Challenge.all.order("id": "desc")
+    @challenges = Challenge.all.order("id": "desc").limit(30)
     @questions = Question.all
     @user = current_user
     @last_item = Challenge.where("result": 1).where("user_id": @user).order("question_id": "desc")
