@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery except: :result
   before_action :authenticate_user!
 
   # GET /questions
@@ -72,13 +73,37 @@ class QuestionsController < ApplicationController
 
   #POST
   def result
-    logger.debug(params[:flag])
-    logger.debug(params[:question_id])
     flag = params[:flag]
-    question_id = params[:question_id]
+    @question_id = params[:question_id]
     # 問題を解いていいかどうか調べる
-
+    if check_question(@question_id, current_user)
+    else
+      # 問題を解いてはいけないので返す
+      redirect_to action: 'show', id: @question_id and return
+    end
     # 問題が既に解かれていないかどうか調べる
+    if check_resolved(@question_id, current_user)
+      # 既に登録済み
+      logger.debug("This question is already resolved.")
+      flash[:danger] = "既に問題解かれています"
+      redirect_to controller:'questions', action: 'show', id: @question_id and return
+    else
+      # 正解フラグを調べる
+      question = Question.find(@question_id)
+      correct_answer = question.answer
+      # 正解かどうかを確認する
+      if flag == correct_answer
+        # 正解
+        # 登録作業
+        Challenge.create(user_id: current_user.id, question_id: @question_id, result: 1).save
+        render 'correct'
+      else
+        # 不正解
+        # 登録作業
+        Challenge.create(user_id: current_user.id, question_id: @question_id, result: 0).save
+        render 'wrong'
+      end
+    end
   end
 
   private
@@ -108,12 +133,12 @@ class QuestionsController < ApplicationController
 
     # 問題が既に解かれていないかどうかを調べる
     def check_resolved (question_id, current_user)
-      resolve_check = Challenge.where("question_id": question_id).where("user_id": current_user)
+      resolve_check = Challenge.where("question_id": question_id).where("user_id": current_user).where("result": 1)
       if resolve_check.exists?
-        # Good (問題が解かれていないのでtrueを返す)
+        # Good (問題が解かれているのでtrueを返す)
         return true
       else
-        # Bad (問題が解かれているのでfalseを返す)
+        # Bad (問題が解かれていないのでfalseを返す)
         return false
       end
     end
