@@ -1,8 +1,16 @@
 <h1><%= @question.name %></h1>
 
-<p>
-  <%= @question.description.html_safe %>
-</p>
+<div class="row">
+  <div class="col-md-3">
+    <%= image_tag @question.image_url %>
+  </div>
+  <div class="col-md-9">
+    <div>
+      <%= @question.description.html_safe %>
+    </div>
+  </div>
+</div>
+
 
 <div id="area" style="margin-top: 30px">
   <h2>解答</h2>
