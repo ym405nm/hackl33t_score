@@ -8,7 +8,16 @@ class ChallengesController < ApplicationController
     @challenges = Challenge.all.order("id": "desc").limit(30)
     @questions = Question.all
     @user = current_user
+
+    # 全問正解かどうか調べる
+    question_num = @questions.count
     @last_item = Challenge.where("result": 1).where("user_id": @user).order("question_id": "desc")
+    resolve_num = @last_item.count
+    @clear_flag = false
+    if resolve_num >= question_num
+      @clear_flag = true
+    end
+
     if @last_item.exists?
       @last_item_question_id = @last_item.first().question_id
     else

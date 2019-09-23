@@ -1,8 +1,12 @@
 <h1>こんにちは、<%= current_user.username %>さん</h1>
-<p>ユーザー用ページです。 <%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
+<p><%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
 <div class="row">
   <div class="col-md-6">
-    -
+    <% if @clear_flag %>
+      全問正解
+    <% else %>
+      -
+    <% end %>
   </div>
   <div class="col-md-6">
     <table class="table">
