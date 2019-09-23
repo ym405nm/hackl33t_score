@@ -12,21 +12,13 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     question_id = params[:id]
-    if question_id == "1"
-     # Good
+    if check_question(question_id, current_user)
+      # Good
     else
-      # 今のIDとchallengeのラストIDが適切かどうかを確認する
-      expect_last_id = question_id.to_i - 1
-      @user = current_user
-      c_check = Challenge.where("question_id": expect_last_id).where("user_id": current_user)
-      if c_check.exists?
-        # Good
-      else
-        # Bad
-        render "questions/no_access"
-      end
+      # Bad
+      render "questions/block"
     end
-
+    @check_resolved = check_resolved(question_id, current_user)
   end
 
   # GET /questions/new
@@ -78,10 +70,52 @@ class QuestionsController < ApplicationController
     end
   end
 
+  #POST
+  def result
+    logger.debug(params[:flag])
+    logger.debug(params[:question_id])
+    flag = params[:flag]
+    question_id = params[:question_id]
+    # 問題を解いていいかどうか調べる
+
+    # 問題が既に解かれていないかどうか調べる
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+    end
+
+    # 問題に挑戦していいかどうか（ステップをスキップしていないかどうか）を調べる
+    def check_question (question_id, current_user)
+      if question_id == "1"
+        # Good
+      else
+        # 今のIDとchallengeのラストIDが適切かどうかを確認する
+        expect_last_id = question_id.to_i - 1
+        @user = current_user
+        c_check = Challenge.where("question_id": expect_last_id).where("user_id": current_user)
+        if c_check.exists?
+          # Good
+        else
+          # Bad
+          return false
+        end
+      end
+      return true
+    end
+
+    # 問題が既に解かれていないかどうかを調べる
+    def check_resolved (question_id, current_user)
+      resolve_check = Challenge.where("question_id": question_id).where("user_id": current_user)
+      if resolve_check.exists?
+        # Good (問題が解かれていないのでtrueを返す)
+        return true
+      else
+        # Bad (問題が解かれているのでfalseを返す)
+        return false
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

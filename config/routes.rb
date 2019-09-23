@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :challenges
+  post 'questions/result', to: 'questions#result'
   resources :questions
   devise_for :users
   root 'pages#index'
