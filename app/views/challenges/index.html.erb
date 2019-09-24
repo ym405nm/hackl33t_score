@@ -5,7 +5,10 @@
     <% if @clear_flag %>
       全問正解
     <% else %>
-      -
+      <%= image_tag 'map.png', :width => '350' %>
+      <div class="map-pointer" id="pq1" style="position:absolute;left:300px;top:200px">＊</div>
+      <div class="map-pointer" id="pq2" style="position:absolute;left:30px;top:10px">＊</div>
+      <div class="map-pointer" id="pq3" style="position:absolute;left:30px;top:10px">＊</div>
     <% end %>
   </div>
   <div class="col-md-6">
