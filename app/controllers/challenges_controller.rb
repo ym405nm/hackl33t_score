@@ -33,16 +33,25 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/new
   def new
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @challenge = Challenge.new
   end
 
   # GET /challenges/1/edit
   def edit
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
   end
 
   # POST /challenges
   # POST /challenges.json
   def create
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @challenge = Challenge.new(challenge_params)
 
     respond_to do |format|
@@ -59,6 +68,9 @@ class ChallengesController < ApplicationController
   # PATCH/PUT /challenges/1
   # PATCH/PUT /challenges/1.json
   def update
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     respond_to do |format|
       if @challenge.update(challenge_params)
         format.html { redirect_to @challenge, notice: 'Challenge was successfully updated.' }
@@ -73,6 +85,9 @@ class ChallengesController < ApplicationController
   # DELETE /challenges/1
   # DELETE /challenges/1.json
   def destroy
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @challenge.destroy
     respond_to do |format|
       format.html { redirect_to challenges_url, notice: 'Challenge was successfully destroyed.' }

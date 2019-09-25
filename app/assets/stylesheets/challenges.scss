@@ -1,3 +1,36 @@
 // Place all the styles related to the challenges controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#challenge-map{
+  text-align: center;
+}
+
+#pq1{
+  position:absolute;
+  left:412px;
+  top:128px
+}
+
+#pq2{
+  position:absolute;
+  left:196px;
+  top:89px
+}
+
+#pq3{
+  position:absolute;
+  left:220px;
+  top:60px
+}
+
+#pq4{
+  position:absolute;
+  left:240px;
+  top:100px
+}
+
+.map-pointer{
+  background-color: orange;
+  color: white;
+}

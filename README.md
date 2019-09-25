@@ -1,24 +1,32 @@
-# README
+Hackl33t Fighters for WordPress
+==========
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Install
 
-Things you may want to cover:
+Git clone
 
-* Ruby version
+Copy `master.key` file
 
-* System dependencies
+```bash
+ls config/master.key
+```
 
-* Configuration
+Docker Build
 
-* Database creation
+```bash
+docker-compose build
+docker-compose up
+```
 
-* Database initialization
+Build Assets Precompile
 
-* How to run the test suite
+```bash
+docker-compose exec web rake assets:precompile RAILS_ENV=production
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Migration
 
-* Deployment instructions
-
-* ...
+```bash
+docker-compose exec web rake db:migrate
+docker-compose exec web rake db:seed
+```

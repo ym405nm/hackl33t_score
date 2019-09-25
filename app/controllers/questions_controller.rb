@@ -6,6 +6,9 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @questions = Question.all
   end
 
@@ -24,16 +27,25 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @question = Question.new
   end
 
   # GET /questions/1/edit
   def edit
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
   end
 
   # POST /questions
   # POST /questions.json
   def create
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @question = Question.new(question_params)
 
     respond_to do |format|
@@ -50,6 +62,9 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
@@ -64,6 +79,9 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
+    if "admin" != current_user.username
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @question.destroy
     respond_to do |format|
       format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }

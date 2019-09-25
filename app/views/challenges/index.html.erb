@@ -1,14 +1,16 @@
-<h1>こんにちは、<%= current_user.username %>さん</h1>
-<p><%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
+<h1>HackL33t Fighters Ⅱ For WordPress</h1>
+<p>ログイン中:<%= current_user.username %>さん <%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6" id="challenge-map">
     <% if @clear_flag %>
-      全問正解
+      <h2>全問正解</h2>
+      <%= image_tag 'thanks.gif' %>
     <% else %>
       <%= image_tag 'map.png', :width => '350' %>
-      <div class="map-pointer" id="pq1" style="position:absolute;left:320px;top:128px">＊</div>
-      <div class="map-pointer" id="pq2" style="position:absolute;left:102px;top:89px">＊</div>
-      <div class="map-pointer" id="pq3" style="position:absolute;left:130px;top:60px">＊</div>
+      <div class="map-pointer" id="pq1">＊</div>
+      <div class="map-pointer" id="pq2">＊</div>
+      <div class="map-pointer" id="pq3">＊</div>
+      <div class="map-pointer" id="pq4">＊</div>
     <% end %>
   </div>
   <div class="col-md-6">
