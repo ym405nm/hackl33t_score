@@ -21,6 +21,10 @@ docker-compose up
 Build Assets Precompile
 
 ```bash
+docker-compose exec web rake assets:clobber
+```
+
+```bash
 docker-compose exec web rake assets:precompile RAILS_ENV=production
 ```
 
