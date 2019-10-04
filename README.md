@@ -5,11 +5,7 @@ Hackl33t Fighters for WordPress
 
 Git clone
 
-Copy `master.key` file
-
-```bash
-ls config/master.key
-```
+Generate credentials. (https://medium.com/cedarcode/rails-5-2-credentials-9b3324851336)
 
 Docker Build
 
@@ -34,3 +30,7 @@ Migration
 docker-compose exec web rake db:migrate
 docker-compose exec web rake db:seed
 ```
+
+## Future Works 
+
+English Version...
