@@ -1,5 +1,11 @@
-Hackl33t Fighters for WordPress
-==========
+Score for Hackl33t Fighters II for WordPress
+========================================
+
+This is the score application for "Hackl33t Fighters II for WordPress
+"
+
+Please enjoy it with the score application. https://github.com/ym405nm/hackl33t_fighters
+
 
 ## Install
 
